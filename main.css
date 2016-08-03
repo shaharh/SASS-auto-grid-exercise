@@ -1,0 +1,362 @@
+* {
+  box-sizing: content-box;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+}
+
+.grid [class*="grid__row"] {
+  display: flex;
+  height: 40px;
+  margin-bottom: 5px;
+  padding: 2px 0;
+}
+.grid [class*="grid__row"] [class*="grid__cell"] {
+  position: relative;
+  border: 1px inset black;
+  background: lightblue;
+}
+.grid [class*="grid__row"] [class*="grid__cell"] .content {
+  text-align: center;
+}
+
+/* =========================================== */
+/* ---------->>> AUTO-GRID OUTPUT<<<---------- */
+/* =========================================== */
+/**/
+/*-------->>> breakpoint 1:  <<<------- */
+/* breakpoint has media query: false */
+/* breakpoint has name: false */
+/* breakpoint has cells: true */
+/**/
+/* cell has custom name: true */
+.grid__cell--1 {
+  -ms-flex-preferred-size: 100%;
+  -webkit-flex-basis: 100%;
+  flex-basis: 100%;
+  max-width: 100%;
+}
+
+/* cell has custom name: true */
+.grid__cell--1\/4 {
+  -ms-flex-preferred-size: 25%;
+  -webkit-flex-basis: 25%;
+  flex-basis: 25%;
+  max-width: 25%;
+}
+
+/* cell has custom name: true */
+.grid__cell--1\/3 {
+  -ms-flex-preferred-size: 33.33333%;
+  -webkit-flex-basis: 33.33333%;
+  flex-basis: 33.33333%;
+  max-width: 33.33333%;
+}
+
+/* cell has custom name: true */
+.grid__cell--1\/6 {
+  -ms-flex-preferred-size: calc(100%/6);
+  -webkit-flex-basis: calc(100%/6);
+  flex-basis: calc(100%/6);
+  max-width: calc(100%/6);
+}
+
+/* cell has custom name: true */
+.grid__cell--1\/2 {
+  -ms-flex-preferred-size: 50%;
+  -webkit-flex-basis: 50%;
+  flex-basis: 50%;
+  max-width: 50%;
+}
+
+/* cell has custom name: true */
+.grid__cell--1\/5 {
+  -ms-flex-preferred-size: 20%;
+  -webkit-flex-basis: 20%;
+  flex-basis: 20%;
+  max-width: 20%;
+}
+
+/* cell has custom name: true */
+.grid__cell--1\/10 {
+  -ms-flex-preferred-size: 10%;
+  -webkit-flex-basis: 10%;
+  flex-basis: 10%;
+  max-width: 10%;
+}
+
+/* cell has custom name: true */
+.grid__cell--1\/100 {
+  -ms-flex-preferred-size: 1%;
+  -webkit-flex-basis: 1%;
+  flex-basis: 1%;
+  max-width: 1%;
+}
+
+/*-----Cell modifiers-----*/
+.grid__cell {
+  -ms-flex-preferred-size: auto;
+  -webkit-flex-basis: auto;
+  flex-basis: auto;
+  -webkit-flex-grow: initial;
+  -ms-flex-positive: initial;
+  -webkit-box-flex: initial;
+  flex-grow: initial;
+}
+.grid__cell--first {
+  -webkit-order: -1;
+  -ms-flex-order: -1;
+  -webkit-box-ordinal-group: 0;
+  order: -1;
+}
+.grid__cell--last {
+  -webkit-order: 1;
+  -ms-flex-order: 1;
+  -webkit-box-ordinal-group: 2;
+  order: 1;
+}
+.grid__cell--top {
+  align-self: flex-start;
+}
+.grid__cell--middle {
+  align-self: center;
+}
+.grid__cell--bottom {
+  align-self: flex-end;
+}
+.grid__cell--stretch {
+  align-self: stretch;
+}
+.grid__cell--baseline {
+  align-self: baseline;
+}
+.grid__cell--hide {
+  display: none;
+}
+
+/**/
+/*-------->>> breakpoint 2: lg <<<------- */
+/* breakpoint has media query: true */
+@media only screen and (min-width: 75em) {
+  /* breakpoint has name: true */
+  /* breakpoint has cells: true */
+  /**/
+  /* cell has custom name: true */
+  .grid__cell--lg--1 {
+    -ms-flex-preferred-size: 100%;
+    -webkit-flex-basis: 100%;
+    flex-basis: 100%;
+    max-width: 100%;
+  }
+
+  /* cell has custom name: true */
+  .grid__cell--lg--1\/4 {
+    -ms-flex-preferred-size: 25%;
+    -webkit-flex-basis: 25%;
+    flex-basis: 25%;
+    max-width: 25%;
+  }
+
+  /* cell has custom name: true */
+  .grid__cell--lg--1\/3 {
+    -ms-flex-preferred-size: 33.33333%;
+    -webkit-flex-basis: 33.33333%;
+    flex-basis: 33.33333%;
+    max-width: 33.33333%;
+  }
+
+  /* cell has custom name: true */
+  .grid__cell--lg--1\/6 {
+    -ms-flex-preferred-size: calc(100%/6);
+    -webkit-flex-basis: calc(100%/6);
+    flex-basis: calc(100%/6);
+    max-width: calc(100%/6);
+  }
+
+  /* cell has custom name: true */
+  .grid__cell--lg--1\/2 {
+    -ms-flex-preferred-size: 50%;
+    -webkit-flex-basis: 50%;
+    flex-basis: 50%;
+    max-width: 50%;
+  }
+
+  /* cell has custom name: true */
+  .grid__cell--lg--1\/5 {
+    -ms-flex-preferred-size: 20%;
+    -webkit-flex-basis: 20%;
+    flex-basis: 20%;
+    max-width: 20%;
+  }
+
+  /* cell has custom name: true */
+  .grid__cell--lg--1\/10 {
+    -ms-flex-preferred-size: 10%;
+    -webkit-flex-basis: 10%;
+    flex-basis: 10%;
+    max-width: 10%;
+  }
+
+  /* cell has custom name: true */
+  .grid__cell--lg--1\/100 {
+    -ms-flex-preferred-size: 1%;
+    -webkit-flex-basis: 1%;
+    flex-basis: 1%;
+    max-width: 1%;
+  }
+
+  /*-----Cell modifiers-----*/
+  .grid__cell--lg {
+    -ms-flex-preferred-size: auto;
+    -webkit-flex-basis: auto;
+    flex-basis: auto;
+    -webkit-flex-grow: initial;
+    -ms-flex-positive: initial;
+    -webkit-box-flex: initial;
+    flex-grow: initial;
+  }
+  .grid__cell--lg--first {
+    -webkit-order: -1;
+    -ms-flex-order: -1;
+    -webkit-box-ordinal-group: 0;
+    order: -1;
+  }
+  .grid__cell--lg--last {
+    -webkit-order: 1;
+    -ms-flex-order: 1;
+    -webkit-box-ordinal-group: 2;
+    order: 1;
+  }
+  .grid__cell--lg--top {
+    align-self: flex-start;
+  }
+  .grid__cell--lg--middle {
+    align-self: center;
+  }
+  .grid__cell--lg--bottom {
+    align-self: flex-end;
+  }
+  .grid__cell--lg--stretch {
+    align-self: stretch;
+  }
+  .grid__cell--lg--baseline {
+    align-self: baseline;
+  }
+  .grid__cell--lg--hide {
+    display: none;
+  }
+}
+/**/
+/*-------->>> breakpoint 3: xs <<<------- */
+/* breakpoint has media query: false */
+/* breakpoint has name: true */
+/* breakpoint has cells: true */
+/**/
+/* cell has custom name: true */
+.grid__cell--xs--1 {
+  -ms-flex-preferred-size: 100%;
+  -webkit-flex-basis: 100%;
+  flex-basis: 100%;
+  max-width: 100%;
+}
+
+/* cell has custom name: true */
+.grid__cell--xs--1\/4 {
+  -ms-flex-preferred-size: 25%;
+  -webkit-flex-basis: 25%;
+  flex-basis: 25%;
+  max-width: 25%;
+}
+
+/* cell has custom name: true */
+.grid__cell--xs--1\/3 {
+  -ms-flex-preferred-size: 33.33333%;
+  -webkit-flex-basis: 33.33333%;
+  flex-basis: 33.33333%;
+  max-width: 33.33333%;
+}
+
+/* cell has custom name: true */
+.grid__cell--xs--1\/6 {
+  -ms-flex-preferred-size: calc(100%/6);
+  -webkit-flex-basis: calc(100%/6);
+  flex-basis: calc(100%/6);
+  max-width: calc(100%/6);
+}
+
+/* cell has custom name: true */
+.grid__cell--xs--1\/2 {
+  -ms-flex-preferred-size: 50%;
+  -webkit-flex-basis: 50%;
+  flex-basis: 50%;
+  max-width: 50%;
+}
+
+/* cell has custom name: true */
+.grid__cell--xs--1\/5 {
+  -ms-flex-preferred-size: 20%;
+  -webkit-flex-basis: 20%;
+  flex-basis: 20%;
+  max-width: 20%;
+}
+
+/* cell has custom name: true */
+.grid__cell--xs--1\/10 {
+  -ms-flex-preferred-size: 10%;
+  -webkit-flex-basis: 10%;
+  flex-basis: 10%;
+  max-width: 10%;
+}
+
+/* cell has custom name: true */
+.grid__cell--xs--1\/100 {
+  -ms-flex-preferred-size: 1%;
+  -webkit-flex-basis: 1%;
+  flex-basis: 1%;
+  max-width: 1%;
+}
+
+/*-----Cell modifiers-----*/
+.grid__cell--xs {
+  -ms-flex-preferred-size: auto;
+  -webkit-flex-basis: auto;
+  flex-basis: auto;
+  -webkit-flex-grow: initial;
+  -ms-flex-positive: initial;
+  -webkit-box-flex: initial;
+  flex-grow: initial;
+}
+.grid__cell--xs--first {
+  -webkit-order: -1;
+  -ms-flex-order: -1;
+  -webkit-box-ordinal-group: 0;
+  order: -1;
+}
+.grid__cell--xs--last {
+  -webkit-order: 1;
+  -ms-flex-order: 1;
+  -webkit-box-ordinal-group: 2;
+  order: 1;
+}
+.grid__cell--xs--top {
+  align-self: flex-start;
+}
+.grid__cell--xs--middle {
+  align-self: center;
+}
+.grid__cell--xs--bottom {
+  align-self: flex-end;
+}
+.grid__cell--xs--stretch {
+  align-self: stretch;
+}
+.grid__cell--xs--baseline {
+  align-self: baseline;
+}
+.grid__cell--xs--hide {
+  display: none;
+}
+
+/*# sourceMappingURL=main.css.map */

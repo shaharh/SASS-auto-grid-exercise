@@ -1,0 +1,201 @@
+// =======================================
+// ---->>>GENERAL UTILITY FUNCTIONS<<<----
+// =======================================
+
+// check if var has any content
+@function validateContent($var) {
+		@if $var == null or $var == '' or $var == undefined {
+				@return false;
+		}
+		@return true;
+}
+// check var type
+@function validateType($var, $type) {
+		@if validateContent($var) == false {
+				@return false;
+		}
+		@if (type_of($var) != $type) {
+				@warn '#{$var} is not a #{$type}';
+				@return false;
+		}
+		@if $type == list {
+				@if length($var) < 2 or type_of($var) == map {
+						@warn '#{$var} is not REALLY a list';
+						@return false;
+				}
+		}
+		@return true;
+}
+// evaluate a list of booleans and return true only if all are true
+@function evalMulti($list){
+		@each $value in $list {
+				@if $value != true {
+						@return false;
+				}
+		}
+		@return true;
+}
+// replace string
+@function str-replace($string, $search, $replace: '') {
+		$index: str-index($string, $search);
+		@if $index {
+				@return str-slice($string, 1, $index - 1) + $replace + str-replace(str-slice($string, $index + str-length($search)), $search, $replace);
+		}
+		@return $string;
+}
+
+// =======================================
+// ---------->>> GRID-MIXINS <<<----------
+// =======================================
+
+@mixin flex-basis($basis){
+		-ms-flex-preferred-size: $basis;
+		-webkit-flex-basis: $basis;
+		flex-basis: $basis;
+}
+@mixin flex-grow($grow){
+		-webkit-flex-grow: $grow;
+		-ms-flex-positive: $grow;
+		-webkit-box-flex: $grow;
+		flex-grow: $grow;
+}
+@mixin flex-self($self) {
+		align-self: $self;
+}
+@mixin cell-content-width() {
+		@include flex-basis(auto);
+		@include flex-grow(initial);
+}
+@mixin cell-max-width($width){
+		@include flex-basis($width);
+		max-width: $width;
+}
+@mixin cell-order($order) {
+		-webkit-order: $order;
+		-ms-flex-order: $order;
+		-webkit-box-ordinal-group: $order+1;
+		order: $order;
+}
+@mixin cell-modifiers($base) {
+		/*-----Cell modifiers-----*/
+		$path: null;
+		@if validateContent($base) {
+				$path: #{$grid-prefix}__#{$grid-cell-prefix}--#{$base};
+		} @else {
+				$path:  #{$grid-prefix}__#{$grid-cell-prefix};
+		}
+		.#{$path} {
+				@include cell-content-width();
+				&--first {
+						@include cell-order(-1);
+				}
+				&--last {
+						@include cell-order(1);
+				}
+				&--top {
+						@include flex-self(flex-start);
+				}
+				&--middle {
+						@include flex-self(center);
+				}
+				&--bottom {
+						@include flex-self(flex-end);
+				}
+				&--stretch {
+						@include flex-self(stretch);
+				}
+				&--baseline {
+						@include flex-self(baseline);
+				}
+				&--show {
+
+				}
+				&--hide {
+						display: none;
+				}
+		}
+}
+// =====================================
+// ---------->>> AUTO-GRID <<<----------
+// =====================================
+
+@function normalizeClassName($cell-size) {
+		$percentage: str-replace($cell-size, '%', 'percent');
+		$calc: str-replace($percentage, 'calc', 'calc_');
+		$right-bracket: str-replace($calc, '(', '');
+		$left-bracket: str-replace($right-bracket, ')', '');
+		$multiply: str-replace($left-bracket, '*', '_times_');
+		$divide: str-replace($multiply, '/', '_divided_by_');
+		$add: str-replace($divide, '+', '_plus_');
+		$subtract: str-replace($add, '-', '_minus_');
+		$dot: str-replace($subtract, '.', '_point_');
+		@return $dot;
+}
+@mixin createCell($cell, $breakpoint-name, $cell-name) {
+		@if validateContent($breakpoint-name) {
+				.#{$grid-prefix}__#{$grid-cell-prefix}--#{$breakpoint-name}--#{$cell-name} {
+						@include cell-max-width($cell);
+				}
+		} @else {
+				.#{$grid-prefix}__#{$grid-cell-prefix}--#{$cell-name} {
+						@include cell-max-width($cell);
+				}
+		}
+}
+
+@mixin createGrid($list, $breakpoint-name){
+		/* breakpoint has name: #{validateContent($breakpoint-name)} */
+		/* breakpoint has cells: #{validateType($list, list)} */
+		/**/
+		@if (validateType($list, list)) {
+				@each $cell in $list {
+						/* cell has custom name: #{validateType($cell, list)} */
+						@if validateType($cell, list) {
+								$cell-name: nth($cell, 2);
+								@include createCell(nth($cell, 1), $breakpoint-name, $cell-name);
+						} @else {
+								$cell-name: normalizeClassName(inspect($cell));
+								@include createCell($cell, $breakpoint-name, $cell-name);
+						}
+				}
+		} @else {
+				@if validateContent($breakpoint-name) {
+						.#{$grid-prefix}__#{$grid-cell-prefix}--#{$breakpoint-name} {
+								zoom: 1;
+								@content;
+						}
+				}
+				@else {
+						.#{$grid-prefix}__#{$grid-cell-prefix} {
+								zoom: 1;
+								@content;
+						}
+				}
+		}
+		@include cell-modifiers($breakpoint-name);
+}
+@mixin createAutoGrid ($breakpoints) {
+		/* =========================================== */
+		/* ---------->>> AUTO-GRID OUTPUT<<<---------- */
+		/* =========================================== */
+		@for $i from 1 through length($breakpoints) {
+				$breakpoint: nth($breakpoints, $i);
+				$name: map-get($breakpoint, 'name');
+				$rule: map-get($breakpoint, 'rule');
+				$value: map-get($breakpoint, 'value');
+				$grid: map-get($breakpoint, 'grid');
+				$hasRule: evalMulti(validateContent($rule)
+				validateContent($value));
+				/**/
+				/*-------->>> breakpoint #{$i}: #{$name} <<<------- */
+				/* breakpoint has media query: #{$hasRule} */
+				@if ($hasRule) {
+						@media only screen and ($rule: $value) {
+								@include createGrid($grid, $name);
+						}
+				}
+				@else {
+						@include createGrid($grid, $name);
+				}
+		}
+}

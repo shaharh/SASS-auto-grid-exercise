@@ -1,0 +1,23 @@
+* {
+		box-sizing: content-box;
+}
+body {
+		margin: 0;
+		padding: 0;
+}
+.grid {
+		[class*="grid__row"] {
+				display: flex;
+				height: 40px;
+				margin-bottom: 5px;
+				padding: 2px 0;
+				[class*="grid__cell"] {
+						position: relative;
+						border: 1px inset black;
+						background: lightblue;
+						.content {
+								text-align: center;
+						}
+				}
+		}
+}
